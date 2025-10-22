@@ -20,8 +20,8 @@ jobs:
           ini-values: post_max_size = 256M, upload_max_filesize = 256M
           coverage: none
 
-      - name: Setup Composer Dependencies
-        run: composer install --no-dev --optimize-autoloader
+      # - name: Setup Composer Dependencies
+      #   run: composer install --no-dev --optimize-autoloader
 
       - name: Setup Node.js
         uses: actions/setup-node@v4
