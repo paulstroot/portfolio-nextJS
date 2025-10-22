@@ -29,10 +29,10 @@ jobs:
       #     node-version: '22'
 
       - name: Install NPM dependencies
-        run: yarn install
+        run: npm install
 
       - name: Build next.js frontend
-        run: yarn build
+        run: npm run build
 
       - name: Deploy to godaddy
         uses: appleboy/scp-action@master
