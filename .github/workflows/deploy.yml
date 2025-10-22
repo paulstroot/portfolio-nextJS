@@ -26,7 +26,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
 
       - name: Install NPM dependencies
         run: npm install
@@ -42,7 +42,7 @@ jobs:
           username: ${{ secrets.GODADDY_SSH_USERNAME }}
           key: ${{ secrets.GODADDY_PRIVATE_KEY }}
           port: 22
-          source: "."
+          source: "./out"
           target: "~/public_html/portfolio/CICD"
 
       # - name: SSH commands
