@@ -44,7 +44,6 @@ jobs:
           port: 22
           source: "."
           target: "~/public_html/portfolio/CICD"
-        run: npm run deploy
 
       # - name: SSH commands
       #   uses: appleboy/ssh-action@master
