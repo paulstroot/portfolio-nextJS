@@ -1,0 +1,76 @@
+body.theme-wildwest{
+
+  --theme-font-heading: var(--font-josefin);
+  --theme-font-body: var(--font-josefin);
+  --theme-font-sans: var(--font-josefin);
+
+  --theme-color-light: #ffffff;
+  --theme-color-dark: #321a16;
+  --theme-color-hero-bkg: #0c0605;
+
+  --theme-color-background: var(--theme-color-light);
+  --theme-color-foreground: var(--theme-color-dark);
+
+  --theme-color-primary-50: #f9f6f1;
+  --theme-color-primary-100: #eee5d7;
+  --theme-color-primary-200: #dcc7ab;
+  --theme-color-primary-300: #caa87f;
+  --theme-color-primary-400: #be8f61;
+  --theme-color-primary-500: #ac714a;
+  --theme-color-primary-600: #9d5e42;
+  --theme-color-primary-700: #83493a;
+  --theme-color-primary-800: #6d3c33;
+  --theme-color-primary-900: #5a332d;
+  --theme-color-primary-950: #321a16;
+
+  --theme-color-secondary-50: #f7f6f3;
+  --theme-color-secondary-100: #e8e7dd;
+  --theme-color-secondary-200: #d9d7c7;
+  --theme-color-secondary-300: #b6b193;
+  --theme-color-secondary-400: #a59d7a;
+  --theme-color-secondary-500: #978a69;
+  --theme-color-secondary-600: #84755b;
+  --theme-color-secondary-700: #6f5f4e;
+  --theme-color-secondary-800: #5d4f43;
+  --theme-color-secondary-900: #4e4339;
+  --theme-color-secondary-950: #2b231d;
+
+  --theme-color-accent-50: #fbf5f5;
+  --theme-color-accent-100: #f8e8e8;
+  --theme-color-accent-200: #f2d6d6;
+  --theme-color-accent-300: #e8b9b9;
+  --theme-color-accent-400: #d99090;
+  --theme-color-accent-500: #c86b6b;
+  --theme-color-accent-600: #b25050;
+  --theme-color-accent-700: #8b3c3c;
+  --theme-color-accent-800: #7c3838;
+  --theme-color-accent-900: #683434;
+  --theme-color-accent-950: #371818;
+
+
+  --theme-color-background-contrast: var(--theme-color-dark);
+  --theme-color-foreground-contrast: var(--theme-color-light);
+  --theme-color-primary: var(--theme-color-primary-500);
+  --theme-color-secondary: var(--theme-color-secondary-400);
+  --theme-color-accent: var(--theme-color-accent-500);
+
+  --theme-color-primary-contrast: var(--theme-color-light);
+  --theme-color-secondary-contrast: var(--theme-color-dark);
+  --theme-color-accent-contrast: var(--theme-color-dark);
+
+  --theme-color-success: var(--theme-color-green-500);
+  --theme-color-info: var(--theme-color-primary);
+  --theme-color-warning: var(--theme-color-accent);
+  --theme-color-danger: var(--theme-color-red-500);
+}
+
+body.theme-wildwest {
+  .only-theme-wildwest {
+    display: block !important;
+  }
+}
+
+
+
+
+

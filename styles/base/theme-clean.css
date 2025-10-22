@@ -1,0 +1,83 @@
+body.theme-clean{
+
+  .only-theme-clean {
+    display: block !important;
+  }
+  .hero .container {
+    @apply flex-col;
+    > div{
+      @apply !w-full items-center;
+    }
+  }
+
+  --theme-font-heading: var(--font-libre);
+  --theme-font-body: var(--font-libre);
+  --theme-font-sans: var(--font-libre);
+
+  --theme-color-light: #FFFFFF;
+  --theme-color-dark: #10112a;
+  --theme-color-hero-bkg: #FFFFFF;
+
+  --theme-color-background: var(--theme-color-light);
+  --theme-color-foreground: var(--theme-color-dark);
+
+  --theme-color-primary-50: #f5f7f9;
+  --theme-color-primary-100: #e8ecf1;
+  --theme-color-primary-200: #e8ecf1;
+  --theme-color-primary-300: #bac7d6;
+  --theme-color-primary-400: #98abc2;
+  --theme-color-primary-500: #7f92b2;
+  --theme-color-primary-600: #6d7da3;
+  --theme-color-primary-700: #FFFFFF;
+  --theme-color-primary-800: #535c7a;
+  --theme-color-primary-900: #454d63;
+  --theme-color-primary-950: #2d313e;
+
+
+
+  --theme-color-secondary-50: #f7f8f7;
+  --theme-color-secondary-100: #f1f2f1;
+  --theme-color-secondary-200: #e4e6e6;
+  --theme-color-secondary-300: #cfd2d1;
+  --theme-color-secondary-400: #b0b6b5;
+  --theme-color-secondary-500: #cccccc;
+  --theme-color-secondary-600: #7d8584;
+  --theme-color-secondary-700: #717a7a;
+  --theme-color-secondary-800: #575d5d;
+  --theme-color-secondary-900: #4b5050;
+  --theme-color-secondary-950: #2a2d2d;
+
+
+
+  --theme-color-accent-50: #f3faf9;
+  --theme-color-accent-100: #d7f0ed;
+  --theme-color-accent-200: #afe0da;
+  --theme-color-accent-300: #7fc9c3;
+  --theme-color-accent-400: #55aca8;
+  --theme-color-accent-500: #368482;
+  --theme-color-accent-600: #2d7473;
+  --theme-color-accent-700: #285d5d;
+  --theme-color-accent-800: #234c4c;
+  --theme-color-accent-900: #213f40;
+  --theme-color-accent-950: #0e2425;
+
+
+
+
+  --theme-color-background-contrast: var(--theme-color-dark);
+  --theme-color-foreground-contrast: var(--theme-color-dark);
+  --theme-color-primary: var(--theme-color-primary-200);
+  --theme-color-secondary: var(--theme-color-primary-300);
+  --theme-color-accent: var(--theme-color-accent-500);
+
+  --theme-color-primary-contrast: var(--theme-color-dark);
+  --theme-color-secondary-contrast: var(--theme-color-dark);
+  --theme-color-accent-contrast: var(--theme-color-light);
+
+  --theme-color-success: var(--theme-color-green-500);
+  --theme-color-info: var(--theme-color-primary);
+  --theme-color-warning: var(--theme-color-accent);
+  --theme-color-danger: var(--theme-color-red-500);
+}
+
+

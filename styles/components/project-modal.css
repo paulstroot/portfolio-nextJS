@@ -1,0 +1,16 @@
+.project-modal{
+  /* @apply bg-primary-200 ; */
+  .max-h-\[90dvh\]{
+    max-height:90dvh;
+    @apply bg-light text-dark;
+  }
+  .overflow-auto{
+    overflow: auto;
+  }
+  .modal-header{
+    @apply items-center pr-2;
+    h3{
+      @apply my-3 ml-6 font-bold;
+    }
+  }
+}

@@ -1,0 +1,71 @@
+body{
+
+  --theme-font-heading: var(--font-montserrat);
+  --theme-font-body: var(--font-montserrat);
+  --theme-font-sans: var(--font-montserrat);
+
+
+  --theme-color-light: #ffffff;
+  --theme-color-dark: #171717;
+  --theme-color-hero-bkg: #000000;
+
+  --theme-color-background: var(--theme-color-dark);
+  --theme-color-foreground: var(--theme-color-light);
+
+  --theme-color-primary-50: #d8dce1;
+  --theme-color-primary-100: #b1bac5;
+  --theme-color-primary-200: #8c99a8;
+  --theme-color-primary-300: #67798d;
+  --theme-color-primary-400: #445b73;
+  --theme-color-primary-500: #1E3E59;
+  --theme-color-primary-600: #1c344a;
+  --theme-color-primary-700: #192b3c;
+  --theme-color-primary-800: #15222e;
+  --theme-color-primary-900: #121921;
+  --theme-color-primary-950: #0a0f14;
+
+  --theme-color-secondary-50: oklch(0.8742 0.0054 286.4869);
+  --theme-color-secondary-100: oklch(0.7498 0.0099 286.2522);
+  --theme-color-secondary-200: oklch(0.6233 0.0149 286.0126);
+  --theme-color-secondary-300: oklch(0.4972 0.0205 285.6600);
+  --theme-color-secondary-400: oklch(0.3723 0.0239 281.9639);
+  --theme-color-secondary-500: oklch(0.2461 0.0304 281.1530);
+  --theme-color-secondary-600: oklch(0.2274 0.0252 280.7813);
+  --theme-color-secondary-700: oklch(0.2095 0.0197 284.5869);
+  --theme-color-secondary-800: oklch(0.1906 0.0161 284.7838);
+  --theme-color-secondary-900: oklch(0.1667 0.0125 284.9820);
+  --theme-color-secondary-950: oklch(0.1314 0.0118 284.6818);
+
+  --theme-color-accent-50: oklch(0.9615 0.0321 76.4467);
+  --theme-color-accent-100: oklch(0.9245 0.0628 75.4672);
+  --theme-color-accent-200: oklch(0.8891 0.0916 74.1693);
+  --theme-color-accent-300: oklch(0.8552 0.1193 73.0069);
+  --theme-color-accent-400: oklch(0.8233 0.1445 71.4237);
+  --theme-color-accent-500: #F9A620;
+  --theme-color-accent-600: oklch(0.6790 0.1361 71.8416);
+  --theme-color-accent-700: oklch(0.5708 0.1114 71.3714);
+  --theme-color-accent-800: oklch(0.4628 0.0852 71.8094);
+  --theme-color-accent-900: oklch(0.3545 0.0593 71.2427);
+  --theme-color-accent-950: oklch(0.2455 0.0317 71.6538);
+
+  --theme-color-background-contrast: var(--theme-color-light);
+  --theme-color-foreground-contrast: var(--theme-color-dark);
+  --theme-color-primary: var(--theme-color-primary-500);
+  --theme-color-secondary: var(--theme-color-secondary-500);
+  --theme-color-accent: var(--theme-color-accent-500);
+
+  --theme-color-primary-contrast: var(--theme-color-light);
+  --theme-color-secondary-contrast: var(--theme-color-light);
+  --theme-color-accent-contrast: var(--theme-color-dark);
+
+  --theme-color-success: var(--theme-color-green-500);
+  --theme-color-info: var(--theme-color-primary);
+  --theme-color-warning: var(--theme-color-accent);
+  --theme-color-danger: var(--theme-color-red-500);
+}
+body.theme-default {
+  .only-theme-default {
+    display: block !important;
+  }
+}
+

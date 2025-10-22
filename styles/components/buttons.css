@@ -1,0 +1,18 @@
+.btn{
+  @apply font-medium focus:outline-none ;
+  @apply focus:ring-4  focus:ring-primary-300;
+  /* @apply dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800; */
+  @apply hover:bg-accent hover:text-accent-contrast;
+  @apply rounded-full h-10 px-5 text-sm;
+  @apply relative flex items-center justify-center text-center;
+  @apply transition-colors duration-300 ease-in-out;
+}
+.btn-primary{
+  @apply text-primary-contrast bg-primary hover:bg-accent hover:text-accent-contrast;
+}
+.btn-secondary{
+  @apply text-secondary-contrast bg-secondary hover:bg-accent hover:text-accent-contrast;
+}
+.btn-accent{
+  @apply text-accent-contrast bg-accent hover:bg-accent hover:text-accent-contrast;
+}

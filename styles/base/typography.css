@@ -1,0 +1,44 @@
+
+h1, h2, h3{
+  @apply font-heading font-normal;
+}
+
+h1 {
+  @apply clamp-[text,2xl,3xl];
+}
+h2 {
+  @apply clamp-[text,xl,2xl] uppercase;
+  @apply mb-6;
+}
+h3 {
+  @apply clamp-[text,lg,xl];
+  @apply mb-4;
+}
+h4 {
+  @apply clamp-[text,lg,xl];
+}
+
+.hero-headline{
+  @apply clamp-[text,2xl,3xl]
+}
+.hero-tagline{
+  @apply clamp-[text,lg,2xl] normal-case;
+}
+
+.prose{
+  p{
+    @apply my-4;
+    &:first-child{
+      @apply mt-0;
+    }
+    &:last-child{
+      @apply mb-0;
+    }
+  }
+  ul{
+    @apply list-disc list-inside;
+    li{
+      @apply list-disc list-inside;
+    }
+  }
+}

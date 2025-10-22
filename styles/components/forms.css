@@ -1,0 +1,25 @@
+form{
+  input[type=text], input[type=email], input[type=password], textarea{
+    @apply block p-2.5 w-full ;
+    @apply appearance-none;
+    @apply text-sm text-gray-800;
+    @apply bg-gray-200/80 border-white/0 rounded-lg border;
+    @apply dark:text-white dark:border-gray-600 dark:focus:border-blue-500 ;
+    @apply focus:outline-none focus:ring-0 focus:border-white/30 focus:bg-gray-200/100;
+
+  }
+  label{
+    @apply absolute !z-0;
+    @apply text-sm text-gray-500;
+    /* @apply dark:text-gray-400 peer-focus:dark:text-blue-500; */
+    @apply duration-300 transform -translate-y-8 translate-x-2.5 scale-75 top-3 -z-10 origin-[0] ;
+    @apply peer-focus:font-medium peer-focus:start-0  peer-focus:scale-75 peer-focus:-translate-y-8;
+    @apply peer-focus:text-white; /* label when above field */
+    @apply peer-placeholder-shown:peer-focus:text-gray-500; /* label when inside field*/
+    @apply rtl:peer-focus:translate-x-1/4 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0;
+  }
+}
+input:-webkit-autofill,
+input:-webkit-autofill:focus {
+  transition: background-color 0s 600000s, color 0s 600000s !important;
+}
