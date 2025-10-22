@@ -1,0 +1,73 @@
+name: Deploy code to godaddy in feature branch
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: mbstring, xml, ctype, iconv, intl, pdo_mysql
+          ini-values: post_max_size = 256M, upload_max_filesize = 256M
+          coverage: none
+
+      - name: Setup Composer Dependencies
+        run: composer install --no-dev --optimize-autoloader
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install NPM dependencies
+        run: npm install
+
+      - name: Build next.js frontend
+        run: npm run build
+
+      - name: Deploy to godaddy
+        uses: appleboy/scp-action@master
+        with:
+          # Set these up in GoDaddy under "Settings / secrets and variables / actions"
+          host: ${{ secrets.GODADDY_SSH_HOST }}
+          username: ${{ secrets.GODADDY_SSH_USERNAME }}
+          key: ${{ secrets.GODADDY_PRIVATE_KEY }}
+          port: 22
+          source: "."
+          target: "~/public_html/portfolio/CICD"
+        run: npm run deploy
+
+      # - name: SSH commands
+      #   uses: appleboy/ssh-action@master
+      #   with:
+      #     host: ${{ secrets.GODADDY_SSH_HOST }}
+      #     username: ${{ secrets.GODADDY_SSH_USERNAME }}
+      #     key: ${{ secrets.GODADDY_PRIVATE_KEY }}
+      #     port: 22
+      #     script: |
+      #       cd ~/public_html/portfolio/CICD"
+      #       # Any other post-deployment commands you might need
+      #       # For example, clearing cache:
+      #       # php artisan cache:clear
+
+      # - name: Move specific files
+      #   uses: appleboy/ssh-action@master
+      #   with:
+      #     host: ${{ secrets.GODADDY_SSH_HOST }}
+      #     username: ${{ secrets.GODADDY_SSH_USERNAME }}
+      #     key: ${{ secrets.GODADDY_PRIVATE_KEY }}
+      #     port: 22
+      #     script: |
+      #       mv ~/public_html/public/index.php ~/public_html/index.php
+      #       mv ~/public_html/public/robots.txt ~/public_html/robots.txt
+      #       mv ~/public_html/public/favicon.ico ~/public_html/favicon.ico
+
