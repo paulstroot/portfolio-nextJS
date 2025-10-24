@@ -11,7 +11,11 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
+      - name: 'Create env file'
+        run: |
+          touch .env
+          echo "${{ secrets.ENV_FILE }}" > .env
+          cat .env
       # - name: Set up PHP
       #   uses: shivammathur/setup-php@v2
       #   with:
