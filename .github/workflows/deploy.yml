@@ -63,26 +63,19 @@ jobs:
         with:
           key: ${{ secrets.GODADDY_PRIVATE_KEY }}
           known_hosts: 'just-a-placeholder-so-we-dont-get-errors'
+
       - name: Adding Known Hosts
         run: ssh-keyscan -H ${{ secrets.GODADDY_SSH_HOST }} >> ~/.ssh/known_hosts
-      - name: Deploy with rsync
-        run: rsync -avz ./out/ ${{ secrets.GODADDY_SSH_USERNAME }}@${{ secrets.GODADDY_SSH_HOST }}:/home/dancingpaul1/public_html/portfolio/CICD
+
+      - name: Deploy to GoDaddy
+        run: rsync -avz ./out/ ${{ secrets.GODADDY_SSH_USERNAME }}@${{ secrets.GODADDY_SSH_HOST }}:/home/dancingpaul1/public_html/paulstroot.com/public
 
 
 
-# alternate method: FTP DEploy - https://github.com/marketplace/actions/ftp-deploy
-      # - name: Deploy to godaddy
-      #   uses: appleboy/scp-action@master
-      #   with:
-      #     # Set these up in GoDaddy under "Settings / secrets and variables / actions"
-      #     host: ${{ secrets.GODADDY_SSH_HOST }}
-      #     username: ${{ secrets.GODADDY_SSH_USERNAME }}
-      #     key: ${{ secrets.GODADDY_PRIVATE_KEY }}
-      #     port: 22
-      #     source: "./out"
-      #     target: "~/public_html/portfolio/CICD"
+      # alternate method: FTP DEploy - https://github.com/marketplace/actions/ftp-deploy
 
-      # - name: SSH commands
+
+      # - name: Post Deployment SSH commands
       #   uses: appleboy/ssh-action@master
       #   with:
       #     host: ${{ secrets.GODADDY_SSH_HOST }}
