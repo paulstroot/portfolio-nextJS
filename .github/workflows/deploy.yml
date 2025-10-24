@@ -12,11 +12,17 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Output Secret
+        run: echo "The value of my secret is ${{ secrets.SPACE_ID }}"
+
       - name: 'Create env file'
         run: |
           touch .env
           echo "${{ secrets.ENV_FILE }}" > .env
           cat .env
+
+      - name: Output Secret 2
+        run: echo "The value of my secret is ${{ secrets.SPACE_ID }}"
 
       - name: Make envfile
         uses: SpicyPizza/create-envfile@v2.0
@@ -34,10 +40,9 @@ jobs:
           # fail_on_empty: false
           # sort_keys: false
           file_name: .env
-      - name: Debugging Echo
-        run: echo "${{ secrets.SPACE_ID }}"
-      - name: Debugging Echo 2
-        run: echo ${{ secrets.SPACE_ID }}
+
+      - name: Output Secret 3
+        run: echo "The value of my secret is ${{ secrets.SPACE_ID }}"
       # - name: Set up PHP
       #   uses: shivammathur/setup-php@v2
       #   with:
