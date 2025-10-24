@@ -13,39 +13,29 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Output Secret
-        run: echo "The value of my secret is ${{ secrets.SPACE_ID }}"
-      - name: Output Foo
-        run: echo "The value of my secret is ${{ secrets.FOO }}"
-
       - name: 'Create env file'
         run: |
           touch .env
           echo "${{ secrets.ENV_FILE }}" > .env
           cat .env
 
-      - name: Output Secret 2
-        run: echo "The value of my secret is ${{ secrets.SPACE_ID }}"
+      # - name: Make envfile
+      #   uses: SpicyPizza/create-envfile@v2.0
+      #   with:
+      #     envkey_SPACE_ID: ${{ secrets.SPACE_ID }}
+      #     envkey_ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+      #     envkey_MANAGEMENT_TOKEN: ${{ secrets.MANAGEMENT_TOKEN }}
+      #     envkey_PREVIEW_TOKEN: ${{ secrets.PREVIEW_TOKEN }}
+      #     envkey_SMTP2GO_API_KEY: ${{ secrets.SMTP2GO_API_KEY }}
+      #     envkey_GODADDY_SSH_HOST: ${{ secrets.GODADDY_SSH_HOST }}
+      #     envkey_GODADDY_SSH_USERNAME: ${{ secrets.GODADDY_SSH_USERNAME }}
+      #     envkey_GODADDY_PRIVATE_KEY: ${{ secrets.GODADDY_PRIVATE_KEY }}
+      #     some_other_variable: foobar
+      #     # directory: .
+      #     # fail_on_empty: false
+      #     # sort_keys: false
+      #     file_name: .env
 
-      - name: Make envfile
-        uses: SpicyPizza/create-envfile@v2.0
-        with:
-          envkey_SPACE_ID: ${{ secrets.SPACE_ID }}
-          envkey_ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-          envkey_MANAGEMENT_TOKEN: ${{ secrets.MANAGEMENT_TOKEN }}
-          envkey_PREVIEW_TOKEN: ${{ secrets.PREVIEW_TOKEN }}
-          envkey_SMTP2GO_API_KEY: ${{ secrets.SMTP2GO_API_KEY }}
-          envkey_GODADDY_SSH_HOST: ${{ secrets.GODADDY_SSH_HOST }}
-          envkey_GODADDY_SSH_USERNAME: ${{ secrets.GODADDY_SSH_USERNAME }}
-          envkey_GODADDY_PRIVATE_KEY: ${{ secrets.GODADDY_PRIVATE_KEY }}
-          some_other_variable: foobar
-          # directory: .
-          # fail_on_empty: false
-          # sort_keys: false
-          file_name: .env
-
-      - name: Output Secret 3
-        run: echo "The value of my secret is ${{ secrets.SPACE_ID }}"
       # - name: Set up PHP
       #   uses: shivammathur/setup-php@v2
       #   with:
