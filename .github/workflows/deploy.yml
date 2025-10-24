@@ -1,9 +1,11 @@
 name: Deploy code to godaddy in feature branch
 
 on:
+  # Trigger when code is pushed to the main branch
   push:
     branches:
       - main
+  # Trigger when contentful dispatches a publish event
   repository_dispatch:
     types: [contentful.deploy]
 
