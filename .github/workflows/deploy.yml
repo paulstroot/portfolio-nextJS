@@ -19,45 +19,46 @@ jobs:
           echo "${{ secrets.ENV_FILE }}" > .env
           cat .env
 
-      # - name: Make envfile
-      #   uses: SpicyPizza/create-envfile@v2.0
+
+
+      # # - name: Make envfile
+      # #   uses: SpicyPizza/create-envfile@v2.0
+      # #   with:
+      # #     envkey_SPACE_ID: ${{ secrets.SPACE_ID }}
+      # #     envkey_ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+      # #     envkey_MANAGEMENT_TOKEN: ${{ secrets.MANAGEMENT_TOKEN }}
+      # #     envkey_PREVIEW_TOKEN: ${{ secrets.PREVIEW_TOKEN }}
+      # #     envkey_SMTP2GO_API_KEY: ${{ secrets.SMTP2GO_API_KEY }}
+      # #     envkey_GODADDY_SSH_HOST: ${{ secrets.GODADDY_SSH_HOST }}
+      # #     envkey_GODADDY_SSH_USERNAME: ${{ secrets.GODADDY_SSH_USERNAME }}
+      # #     envkey_GODADDY_PRIVATE_KEY: ${{ secrets.GODADDY_PRIVATE_KEY }}
+      # #     some_other_variable: foobar
+      # #     # directory: .
+      # #     # fail_on_empty: false
+      # #     # sort_keys: false
+      # #     file_name: .env
+
+      # # - name: Set up PHP
+      # #   uses: shivammathur/setup-php@v2
+      # #   with:
+      # #     php-version: '8.2'
+      # #     extensions: mbstring, xml, ctype, iconv, intl, pdo_mysql
+      # #     ini-values: post_max_size = 256M, upload_max_filesize = 256M
+      # #     coverage: none
+
+      # # - name: Setup Composer Dependencies
+      # #   run: composer install --no-dev --optimize-autoloader
+
+      # - name: Setup Node.js
+      #   uses: actions/setup-node@v4
       #   with:
-      #     envkey_SPACE_ID: ${{ secrets.SPACE_ID }}
-      #     envkey_ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-      #     envkey_MANAGEMENT_TOKEN: ${{ secrets.MANAGEMENT_TOKEN }}
-      #     envkey_PREVIEW_TOKEN: ${{ secrets.PREVIEW_TOKEN }}
-      #     envkey_SMTP2GO_API_KEY: ${{ secrets.SMTP2GO_API_KEY }}
-      #     envkey_GODADDY_SSH_HOST: ${{ secrets.GODADDY_SSH_HOST }}
-      #     envkey_GODADDY_SSH_USERNAME: ${{ secrets.GODADDY_SSH_USERNAME }}
-      #     envkey_GODADDY_PRIVATE_KEY: ${{ secrets.GODADDY_PRIVATE_KEY }}
-      #     some_other_variable: foobar
-      #     # directory: .
-      #     # fail_on_empty: false
-      #     # sort_keys: false
-      #     file_name: .env
+      #     node-version: '20'
 
-      # - name: Set up PHP
-      #   uses: shivammathur/setup-php@v2
-      #   with:
-      #     php-version: '8.2'
-      #     extensions: mbstring, xml, ctype, iconv, intl, pdo_mysql
-      #     ini-values: post_max_size = 256M, upload_max_filesize = 256M
-      #     coverage: none
+      # - name: Install NPM dependencies
+      #   run: npm install
 
-      # - name: Setup Composer Dependencies
-      #   run: composer install --no-dev --optimize-autoloader
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
-
-      - name: Install NPM dependencies
-        run: npm install
-
-      - name: Build next.js frontend
-        run: npm run build
-
+      # - name: Build next.js frontend
+      #   run: npm run build
 
       - name: Install SSH Key
         uses: shimataro/ssh-key-action@v2
@@ -67,7 +68,9 @@ jobs:
       - name: Adding Known Hosts
         run: ssh-keyscan -H ${{ secrets.GODADDY_SSH_HOST }} >> ~/.ssh/known_hosts
       - name: Deploy with rsync
-        run: rsync -avz ./dist/ ${{ secrets.GODADDY_SSH_USERNAME }}@${{ secrets.GODADDY_SSH_HOST }}:/home/zellwk/zellwk.com/dist/
+        run: rsync -avz ./out/ ${{ secrets.GODADDY_SSH_USERNAME }}@${{ secrets.GODADDY_SSH_HOST }}:/home/dancingpaul1/public_html/portfolio/CICD
+
+
 
 # alternate method: FTP DEploy - https://github.com/marketplace/actions/ftp-deploy
       - name: Deploy to godaddy
