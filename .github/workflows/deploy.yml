@@ -3,7 +3,9 @@ name: Deploy code to godaddy in feature branch
 on:
   push:
     branches:
-      - main_disabled
+      - main
+  repository_dispatch:
+    types: [contentful.deploy]
 
 jobs:
   deploy:
