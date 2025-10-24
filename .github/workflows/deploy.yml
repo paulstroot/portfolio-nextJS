@@ -8,12 +8,15 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    environment: production
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Output Secret
         run: echo "The value of my secret is ${{ secrets.SPACE_ID }}"
+      - name: Output Foo
+        run: echo "The value of my secret is ${{ secrets.FOO }}"
 
       - name: 'Create env file'
         run: |
