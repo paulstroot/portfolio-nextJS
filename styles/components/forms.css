@@ -1,5 +1,5 @@
 form{
-  input[type=text], input[type=email], input[type=password], textarea{
+  input[type=text], input[type=email], input[type=tel], input[type=password], textarea{
     @apply block p-2.5 w-full ;
     @apply appearance-none;
     @apply text-sm text-gray-800;
