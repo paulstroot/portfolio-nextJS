@@ -2,6 +2,7 @@
 import { Button } from "flowbite-react";
 import { useState, type FormEvent } from "react";
 import Send from "./icons/send.js";
+const contactEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL;
 
 export default function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -21,10 +22,10 @@ export default function ContactForm() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           to: {
-            email: "paul@dancingpaul.com",
+            email: contactEmail,
             name: `${formValues.first_name} ${formValues.last_name}`,
           },
-          from: { email: "paul@dancingpaul.com" },
+          from: { email: contactEmail },
           subject: "Contact From Portfolio",
           text: `Name: ${formValues.first_name} ${formValues.last_name} \nEmail: ${formValues.email} \nPhone: ${formValues.phone} \nMessage: ${formValues.message}`,
         }),

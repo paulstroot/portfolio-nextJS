@@ -5,12 +5,13 @@ import Envelope from "./icons/envelope.js";
 import LinkedIn from "./icons/linkedin.js";
 import Phone from "./icons/phone.js";
 import Pin from "./icons/pin.js";
+const contactEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL;
 
 const links = () => {
   return [
     {
-      href: "mailto:paul@dancingpaul.com",
-      text: "paul@dancingpaul.com",
+      href: `mailto:${contactEmail}`,
+      text: contactEmail,
       icon: <Envelope />,
     },
     {
@@ -30,7 +31,6 @@ const links = () => {
     },
   ];
 };
-
 export default function ContactButtons() {
   return (
     <ul>
