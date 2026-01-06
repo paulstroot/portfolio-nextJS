@@ -1,10 +1,11 @@
 
 
 @import "tailwindcss";
+@import "flowbite-react/plugin/tailwindcss";
+@source "../.flowbite-react/class-list.json";
 
 
 /* @plugin "@tailwindcss/typography"; */
-/* @plugin "flowbite-react/plugin/tailwindcss"; */
 /* @plugin "flowbite/plugin"; */
 @plugin "tailwind-clamp" { minSize: 25rem;  maxSize: 80rem;}
 

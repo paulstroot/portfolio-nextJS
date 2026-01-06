@@ -1,0 +1,10 @@
+# Security headers for static export deployment
+# This file is used by Netlify. For other hosting providers, check their documentation.
+
+/*
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-eval' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://images.ctfassets.net; font-src 'self' data:; connect-src 'self' https://api.smtp2go.com; frame-ancestors 'none';
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+
