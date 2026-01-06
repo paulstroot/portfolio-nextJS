@@ -8,6 +8,8 @@ import "swiper/css/navigation"
 import "swiper/css/pagination"
 import "swiper/css/scrollbar"
 
+console.log("Hello World")
+
 const content = [
 	{
 		title: "Shopify Certification",

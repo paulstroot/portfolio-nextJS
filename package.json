@@ -16,6 +16,7 @@
     "@ianvs/prettier-plugin-sort-imports": "^4.7.0",
     "autoprefixer": "^10.4.21",
     "contentful": "^11.7.2",
+    "eslint-config-prettier": "^10.1.8",
     "flowbite": "^3.1.2",
     "flowbite-react": "^0.12.9",
     "next": "15.3.4",
@@ -36,7 +37,6 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.3.4",
-    "eslint-config-prettier": "^10.1.8",
     "tailwindcss": "^4.1.13",
     "typescript": "^5"
   },
