@@ -1,12 +1,17 @@
 "use client";
-import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
+
+import {
+  escapeHtml,
+  sanitizeContentfulRichText,
+  sanitizeImageUrl,
+  sanitizeUrlForDisplay,
+} from "@/app/utilities/sanitize";
 import { Button, Card, createTheme } from "flowbite-react";
 import Image from "next/image";
 import { JSX } from "react";
 import Pin from "../../../components/icons/pin.js";
 import { ProjectItem } from "../../../types";
 
-// bg-primary-200 border-none hover:bg-primary-100 text-background
 const customCardTheme = createTheme({
   root: {
     base: "flex rounded-lg border border-none bg-light text-dark shadow-md ",
@@ -51,7 +56,7 @@ function CardImage({
             />
             <Image
               className="screen w-full h-full absolute top-0 left-0 z-0 pt-[3.9%] pl-[3.4%] pr-[3.4%] pb-[27%] object-cover object-top"
-              src={`https:${desktopUrl}`}
+              src={sanitizeImageUrl(desktopUrl)}
               width={270}
               height={2000}
               alt={alt}
@@ -68,7 +73,7 @@ function CardImage({
               />
               <Image
                 className="screen w-full h-full absolute top-0 left-0 pt-[4%] pl-[8%] pr-[8%] pb-[8%] z-2 object-cover object-top"
-                src={`https:${mobileUrl}`}
+                src={sanitizeImageUrl(mobileUrl)}
                 width={77}
                 height={1000}
                 alt={alt}
@@ -80,7 +85,7 @@ function CardImage({
         <div className=" z-[1] right-0 left-0 overflow-hidden">
           <Image
             className="screen w-full h-full  top-0 left-0 z-2 object-cover object-top"
-            src={`https:${featuredImage}`}
+            src={sanitizeImageUrl(featuredImage)}
             width={380}
             height={300}
             alt={alt}
@@ -122,13 +127,13 @@ export default function ProjectCard({
             desktopUrl={desktopLayout?.fields.file.url}
             mobileUrl={mobileLayout?.fields.file.url}
             featuredImage={featuredImage?.fields.file.url}
-            alt={title}
+            alt={escapeHtml(title)}
           />
         )}
       >
         {/* <Link href={`/projects/${slug}`}> */}
         <h3 className="tracking-tight" aria-hidden={!isActive}>
-          {title}
+          {escapeHtml(title)}
         </h3>
         <div className="flex-1" aria-hidden={!isActive}>
           {url && (
@@ -136,12 +141,14 @@ export default function ProjectCard({
               <div className="w-5 mr-2 h-auto text-accent">
                 <Pin />
               </div>
-              <small className="hover:underline">{url}</small>
+              <small className="hover:underline">
+                {sanitizeUrlForDisplay(url)}
+              </small>
             </div>
           )}
 
           <div className="small font-normal">
-            {documentToReactComponents(summary)}
+            {sanitizeContentfulRichText(summary)}
           </div>
         </div>
 

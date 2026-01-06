@@ -1,3 +1,4 @@
+import { escapeHtml, sanitizeImageUrl } from "@/app/utilities/sanitize";
 import { createClient } from "contentful";
 import Image from "next/image";
 import {
@@ -57,7 +58,7 @@ export default async function Skills() {
                 className="category-section  bg-primary-700 rounded-lg p-6"
               >
                 <h3 className="text-xl font-semibold mb-4">
-                  {cat.fields.name}
+                  {escapeHtml(cat.fields.name)}
                 </h3>
 
                 <ul className="flex flex-row flex-wrap gap-6">
@@ -66,14 +67,18 @@ export default async function Skills() {
                     return (
                       <li key={slug} className="">
                         <div className="flex flex-col items-center justify-center text-xs text-center">
-                          <Image
-                            src={`https:${icon?.fields?.file?.url}`}
-                            alt={icon?.fields?.file?.title ?? name}
-                            width={32}
-                            height={32}
-                            className="w-8 h-8 object-contain mb-2"
-                          />
-                          {name}
+                          {icon?.fields?.file?.url && (
+                            <Image
+                              src={sanitizeImageUrl(icon.fields.file.url)}
+                              alt={escapeHtml(
+                                icon?.fields?.file?.title ?? name
+                              )}
+                              width={32}
+                              height={32}
+                              className="w-8 h-8 object-contain mb-2"
+                            />
+                          )}
+                          {escapeHtml(name)}
                         </div>
                       </li>
                     );

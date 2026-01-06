@@ -1,19 +1,9 @@
 "use client";
+import { escapeHtml } from "@/app/utilities/sanitize";
 import { Button } from "flowbite-react";
 import { useState, type FormEvent } from "react";
 import Send from "./icons/send.js";
 const contactEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL;
-
-const escapeHtml = (text: string): string => {
-  const map: { [key: string]: string } = {
-    "&": "&amp;",
-    "<": "&lt;",
-    ">": "&gt;",
-    '"': "&quot;",
-    "'": "&#039;",
-  };
-  return text.replace(/[&<>"']/g, (m) => map[m]);
-};
 
 export default function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -28,7 +18,14 @@ export default function ContactForm() {
     const formValues = Object.fromEntries(formData.entries());
 
     try {
-      const emailBody = `Name: ${formValues.first_name} ${formValues.last_name} \nEmail: ${formValues.email} \nPhone: ${formValues.phone} \nMessage: ${formValues.message}`;
+      const emailBody = [
+        `Name: ${escapeHtml(String(formValues.first_name))} ${escapeHtml(
+          String(formValues.last_name)
+        )}`,
+        `Email: ${escapeHtml(String(formValues.email))}`,
+        `Phone: ${escapeHtml(String(formValues.phone))}`,
+        `Message: ${escapeHtml(String(formValues.message))}`,
+      ].join("\n");
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -39,7 +36,7 @@ export default function ContactForm() {
           },
           from: { email: contactEmail },
           subject: "Contact From Portfolio",
-          text: escapeHtml(emailBody),
+          text: emailBody,
         }),
       });
       if (!res.ok) throw new Error(`Request failed: ${res.status}`);
@@ -66,7 +63,7 @@ export default function ContactForm() {
         <h3>Uh Oh!</h3>
         <p>There has been an error. Please try again.</p>
         <p className="text-error small">
-          {error.replace(/<[^>]*>/g, "").substring(0, 200)}
+          {escapeHtml(error).substring(0, 200)}
         </p>
       </div>
     );

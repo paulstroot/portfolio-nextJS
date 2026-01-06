@@ -1,5 +1,8 @@
 "use client";
-import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
+import {
+  sanitizeContentfulRichText,
+  sanitizeImageUrl,
+} from "@/app/utilities/sanitize";
 import {
   Badge,
   Button,
@@ -16,20 +19,12 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import ProjectCard from "./ProjectCard";
 // Import Swiper styles
 import { ProjectItem } from "@/app/types";
+import { escapeHtml, isValidUrl } from "@/app/utilities/sanitize";
 import Link from "next/link";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
-
-const isValidUrl = (url: string): boolean => {
-  try {
-    const parsed = new URL(url);
-    return parsed.protocol === "http:" || parsed.protocol === "https:";
-  } catch {
-    return false;
-  }
-};
 
 export default function ProjectCarousel({
   projects,
@@ -96,30 +91,35 @@ export default function ProjectCarousel({
       <div className="project-pagination"></div>
       {activeProject && (
         <Modal
+          dismissible
           // size="md"
           show={openModal}
           onClose={() => setOpenModal(false)}
           className="project-modal"
         >
           <ModalHeader className="modal-header">
-            {activeProject.fields.title}
+            {escapeHtml(activeProject.fields.title)}
           </ModalHeader>
           <ModalBody className="modal-body">
             <div className="modal-body space-y-6">
               <Image
-                src={`https:${activeProject.fields.featuredImage.fields.file.url}`}
+                src={sanitizeImageUrl(
+                  activeProject.fields.featuredImage.fields.file.url
+                )}
                 width={577}
                 height={500}
-                alt={activeProject.fields.title}
+                alt={escapeHtml(activeProject.fields.title)}
               />
               <aside className="">
                 <h4>Technologies</h4>
                 <div className="flex flex-wrap gap-2">
                   {(activeProject.fields.skills ?? []).map(
                     (skill, i: number) => {
-                      const icon = (
+                      const icon = skill.fields.icon?.fields.file.url && (
                         <Image
-                          src={`https:${skill.fields.icon?.fields.file.url}`}
+                          src={sanitizeImageUrl(
+                            skill.fields.icon?.fields.file.url
+                          )}
                           width={5}
                           height={5}
                           alt="desktop-monitor"
@@ -132,19 +132,23 @@ export default function ProjectCarousel({
                           className="inline-flex rounded-full py-1 bg-primary/20 hover:bg-primary/30 font-normal  text-[12px]"
                         >
                           {icon}
-                          {skill.fields.name}
+                          {escapeHtml(skill.fields.name)}
                         </Badge>
                       );
                     }
                   )}
                 </div>
               </aside>
-              {documentToReactComponents(activeProject.fields.description)}
+              {sanitizeContentfulRichText(activeProject.fields.description)}
             </div>
           </ModalBody>
           {activeProject.fields.url && isValidUrl(activeProject.fields.url) && (
             <ModalFooter className="flex flex-col items-end py-2 ">
-              <Link href={activeProject.fields.url} target="_blank">
+              <Link
+                href={activeProject.fields.url}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <Button className="btn btn-sm btn-accent">Live Site</Button>
               </Link>
             </ModalFooter>

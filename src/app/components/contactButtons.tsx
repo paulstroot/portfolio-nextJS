@@ -25,7 +25,7 @@ const links = () => {
       icon: <Pin />,
     },
     {
-      href: "",
+      href: "https://linkedin.com/in/paul-stroot",
       text: "linkedin.com/in/paul-stroot",
       icon: <LinkedIn />,
     },
