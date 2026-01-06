@@ -1,6 +1,12 @@
 "use client";
 import Image from "next/image";
-import { A11y, Navigation, Pagination, Scrollbar } from "swiper/modules";
+import {
+  A11y,
+  Keyboard,
+  Navigation,
+  Pagination,
+  Scrollbar,
+} from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 // Import Swiper styles
 import "swiper/css";
@@ -52,14 +58,15 @@ export default function Recognition() {
       className="bg-primary text-primary-contrast recognition py-8 my-0"
     >
       <div className="container m-auto ">
-        <h2>Certifications / Recognignition</h2>
+        <h2>Certifications / Recognition</h2>
 
         <Swiper
           // install Swiper modules
-          modules={[Navigation, Pagination, Scrollbar, A11y]}
+          modules={[Keyboard, Navigation, Pagination, Scrollbar, A11y]}
           spaceBetween={0}
           slidesPerView={1}
           navigation={false}
+          keyboard={{ enabled: true }}
           pagination={{
             el: ".recognition-pagination",
             clickable: true,
@@ -81,29 +88,32 @@ export default function Recognition() {
         >
           {content.map((item, i) => (
             <SwiperSlide key={i}>
-              <div>
-                <Image
-                  src={item.icon}
-                  width={153}
-                  height={153}
-                  loading="lazy"
-                  alt=""
-                  className="w-auto h-auto max-h-[4rem] mb-4"
-                  aria-hidden="true"
-                />
-                <h3>{item.title}</h3>
-                <p>{item.description}</p>
-                {item.link && (
-                  <a
-                    href={item.link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn btn-secondary mt-4 !inline-block !text-xs leading-10"
-                  >
-                    View
-                  </a>
-                )}
-              </div>
+              {({ isActive }) => (
+                <div>
+                  <Image
+                    src={item.icon}
+                    width={153}
+                    height={153}
+                    loading="lazy"
+                    alt={`${item.title} badge icon`}
+                    className="w-auto h-auto max-h-16 mb-4"
+                  />
+                  <h3>{item.title}</h3>
+                  <p>{item.description}</p>
+                  {item.link && (
+                    <a
+                      href={item.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="btn btn-secondary mt-4 !inline-block !text-xs leading-10"
+                      tabIndex={isActive ? 0 : -1}
+                      aria-label={`View ${item.title} (opens in new tab)`}
+                    >
+                      View
+                    </a>
+                  )}
+                </div>
+              )}
             </SwiperSlide>
           ))}
         </Swiper>

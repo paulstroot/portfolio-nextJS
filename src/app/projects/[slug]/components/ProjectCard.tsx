@@ -51,7 +51,7 @@ function CardImage({
               src={`/images/desktop-frame.png`}
               width={253}
               height={210}
-              alt="desktop-monitor"
+              alt=""
               className="frame w-full relative z-[1]"
             />
             <Image
@@ -131,11 +131,9 @@ export default function ProjectCard({
           />
         )}
       >
-        {/* <Link href={`/projects/${slug}`}> */}
-        <h3 className="tracking-tight" aria-hidden={!isActive}>
-          {escapeHtml(title)}
-        </h3>
-        <div className="flex-1" aria-hidden={!isActive}>
+        <h3 className="tracking-tight">{escapeHtml(title)}</h3>
+
+        <div className="flex-1" aria-disabled={!isActive}>
           {url && (
             <div className="flex items-center cursor-pointer mb-2">
               <div className="w-5 mr-2 h-auto text-accent">
@@ -155,12 +153,11 @@ export default function ProjectCard({
         <Button
           onClick={() => showProject(project)}
           className="btn btn-accent w-full mt-4"
-          aria-hidden={!isActive}
-          tab-index={isActive ? undefined : -1}
+          aria-disabled={!isActive}
+          tabIndex={isActive ? undefined : -1}
         >
           Read More
         </Button>
-        {/* </Link> */}
       </Card>
     </div>
   );

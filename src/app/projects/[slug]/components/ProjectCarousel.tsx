@@ -14,7 +14,13 @@ import {
 
 import Image from "next/image";
 import { useState } from "react";
-import { A11y, Navigation, Pagination, Scrollbar } from "swiper/modules";
+import {
+  A11y,
+  Keyboard,
+  Navigation,
+  Pagination,
+  Scrollbar,
+} from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import ProjectCard from "./ProjectCard";
 // Import Swiper styles
@@ -44,8 +50,15 @@ export default function ProjectCarousel({
     <>
       <Swiper
         // install Swiper modules
-        modules={[Navigation, Pagination, Scrollbar, A11y]}
+        modules={[Keyboard, Navigation, Pagination, Scrollbar, A11y]}
         navigation={false}
+        a11y={{
+          prevSlideMessage: "Previous project",
+          nextSlideMessage: "Next project",
+          firstSlideMessage: "This is the first project",
+          lastSlideMessage: "This is the last project",
+        }}
+        keyboard={{ enabled: true }}
         spaceBetween={0}
         slidesPerView={1.2}
         centeredSlides={true}
@@ -148,6 +161,7 @@ export default function ProjectCarousel({
                 href={activeProject.fields.url}
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label={`View Live Site (opens in new tab)`}
               >
                 <Button className="btn btn-sm btn-accent">Live Site</Button>
               </Link>

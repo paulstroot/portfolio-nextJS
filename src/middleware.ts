@@ -1,4 +1,3 @@
-import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 
 /**
@@ -11,7 +10,7 @@ import { NextResponse } from "next/server";
  * For Netlify: Add headers in _headers file or netlify.toml
  * For other providers: Check their documentation for setting security headers
  */
-export function middleware(request: NextRequest) {
+export function middleware() {
   const response = NextResponse.next();
 
   // Content Security Policy

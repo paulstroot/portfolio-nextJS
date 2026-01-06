@@ -43,9 +43,12 @@ export default function Footer() {
                 key={i}
                 href={item.url}
                 target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`Visit ${item.name} profile (opens in new tab)`}
                 className={`block w-8 h-8 mx-4 hover:text-foreground transition-colors duration-300 ${item.color}`}
               >
                 {item.icon}
+                <span className="sr-only">{item.name}</span>
               </a>
             ))}
           </div>

@@ -20,19 +20,9 @@
 }
 
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  @apply clamp-[text,xs,base];
-}
-section{
-  @apply my-16 overflow-hidden;
-  &[class*="bg-"]{
-    @apply my-0 py-16;
-  }
-}
 
 
+@import "./base/global.css";
 @import "./components/buttons.css";
 @import "./components/forms.css";
 @import "./components/carousels.css";

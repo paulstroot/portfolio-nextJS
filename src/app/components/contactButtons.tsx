@@ -39,9 +39,14 @@ export default function ContactButtons() {
           <Link
             href={link.href}
             target="_blank"
+            rel="noopener noreferrer"
             className="group flex text-secondary-contrast items-center hover:bg-accent-700 hover:text-accent-contrast border-secondary hover:border-accent border-2 p-4 rounded-2xl"
+            aria-label={`${link.text} (opens in new tab)`}
           >
-            <span className="icon w-6 h-6 inline-block mr-2 text-accent group-hover:text-accent-contrast ">
+            <span
+              className="icon w-6 h-6 inline-block mr-2 text-accent group-hover:text-accent-contrast "
+              aria-hidden="true"
+            >
               {link.icon}
             </span>
             {link.text}

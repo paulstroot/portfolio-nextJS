@@ -12,7 +12,6 @@ export default async function Hero() {
           src={"/images/hero-wildwest.jpg"}
           width={15300}
           height={500}
-          // loading="eager"
           alt=""
           className="w-[150%] ml-[-50%] md:h-full object-cover max-h-none max-w-none md:w-full md:ml-auto block h-full "
           aria-hidden="true"

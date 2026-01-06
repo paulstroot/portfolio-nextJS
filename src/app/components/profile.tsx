@@ -14,9 +14,8 @@ export default async function Profile() {
               width={510}
               height={510}
               loading="lazy"
-              alt=""
+              alt="Paul Stroot, full-stack developer"
               className="max-w-full h-auto w-sm mx-auto"
-              aria-hidden="true"
             />
           </div>
           <div className="w-full md:w-1/2 prose">

@@ -17,9 +17,10 @@ export default function ThemePicker() {
             key={index}
             className="inline-block ml-2 hover:text-accent"
             onClick={() => swapTheme(themeName)}
-            aria-hidden="true"
+            aria-label={`Switch to ${themeName} theme`}
           >
             {index + 1}
+            <span className="sr-only"> - {themeName} theme</span>
           </button>
         ))}
       </span>

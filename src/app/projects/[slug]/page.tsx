@@ -86,7 +86,10 @@ export default async function ProjectPage({ params }: BlogPageProps) {
   const { title, description } = activeProject.fields;
 
   return (
-    <main className="min-h-screen p-24 flex justify-center bg-background text-background-contrast">
+    <main
+      id="main"
+      className="min-h-screen p-24 flex justify-center bg-background text-background-contrast"
+    >
       <div className="max-w-2xl">
         <h1 className="text-4xl font-bold leading-tight tracking-tight mb-4">
           {escapeHtml(title)}

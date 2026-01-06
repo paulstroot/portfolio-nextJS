@@ -8,10 +8,33 @@ form{
     @apply focus:outline-none focus:ring-0 focus:border-white/30 focus:bg-gray-200/100;
 
   }
+
+  input.valid {
+    @apply border-success;
+  }
+
+
+
+
+  &.submitted input.invalid {
+    @apply border border-danger!;
+    background-color: #ffd9d9;
+  }
+  .error-message {
+    @apply hidden text-warning mt-1 text-xs;
+  }
+  &.submitted input.invalid + .error-message {
+    display: block;
+  }
+
+
+
+
   label{
-    @apply absolute !z-0;
+    @apply absolute z-0! ;
     @apply text-sm text-gray-500;
     /* @apply dark:text-gray-400 peer-focus:dark:text-blue-500; */
+    @apply peer-placeholder-shown:left-0;
     @apply duration-300 transform -translate-y-8 translate-x-2.5 scale-75 top-3 -z-10 origin-[0] ;
     @apply peer-focus:font-medium peer-focus:start-0  peer-focus:scale-75 peer-focus:-translate-y-8;
     @apply peer-focus:text-white; /* label when above field */

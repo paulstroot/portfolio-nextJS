@@ -12,7 +12,7 @@ export default async function Hero() {
           src={"/images/hero-helmet2.jpg"}
           width={1200}
           height={500}
-          // loading="eager"
+          loading="eager"
           alt=""
           className="w-[150%] ml-[-50%] max-h-none max-w-none md:w-full md:h-full md:ml-auto block h-full object-contain object-right-bottom"
           aria-hidden="true"

@@ -90,9 +90,14 @@ export default function RootLayout({
       <body
         className={`theme-default font-body antialiased flex min-h-screen flex-col`}
       >
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:absolute focus:top-0 focus:left-0 focus:z-100 focus:p-2 focus:bg-primary focus:text-primary-contrast"
+        >
+          Skip to main content
+        </a>
         <ThemeProvider theme={customTheme}>
           <Header />
-
           {children}
           <Footer />
         </ThemeProvider>

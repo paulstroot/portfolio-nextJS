@@ -11,10 +11,9 @@ export default async function Hero() {
           src={"/images/hero-wrestler.jpg"}
           width={1300}
           height={500}
-          // loading="eager"
+          loading="eager"
           alt=""
           className="w-[150%] ml-[-50%] md:w-full md:h-full object-cover max-h-none max-w-none md:w-full md:ml-auto block h-full "
-          aria-hidden="true"
         /> */}
       </div>
 

@@ -2,7 +2,7 @@ import { Button } from "flowbite-react";
 
 export default async function DesignSystem() {
   return (
-    <main className="flex-1">
+    <main id="main" className="flex-1">
       <section className="">
         <div className="container">
           <h1>Headlines</h1>
