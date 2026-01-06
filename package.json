@@ -6,17 +6,20 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "pa11y": "pa11y --ignore notice http://localhost:3000/"
   },
   "dependencies": {
     "@contentful/rich-text-html-renderer": "^17.1.5",
     "@contentful/rich-text-plain-text-renderer": "^17.1.5",
     "@contentful/rich-text-react-renderer": "^16.0.2",
+    "@ianvs/prettier-plugin-sort-imports": "^4.7.0",
     "autoprefixer": "^10.4.21",
     "contentful": "^11.7.2",
     "flowbite": "^3.1.2",
     "flowbite-react": "^0.12.9",
     "next": "15.3.4",
+    "pa11y": "^9.0.1",
     "postcss": "^8.5.6",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
@@ -33,6 +36,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "15.3.4",
+    "eslint-config-prettier": "^10.1.8",
     "tailwindcss": "^4.1.13",
     "typescript": "^5"
   },

@@ -88,7 +88,9 @@ export default function RootLayout({
         <ThemeModeScript />
       </head>
       <body
-        className={`theme-default font-body antialiased flex min-h-screen flex-col`}
+        className={
+          "theme-default font-body antialiased flex min-h-screen flex-col"
+        }
       >
         <a
           href="#main"
