@@ -32,13 +32,25 @@ type Props = {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 };
 
-const fetchProjectData = async (slug: string): Promise<ProjectItem> => {
+const validateSlug = (slug: string): boolean => {
+  return /^[a-zA-Z0-9-_]+$/.test(slug) && slug.length <= 100;
+};
+
+const fetchProjectData = async (slug: string): Promise<ProjectItem | null> => {
+  if (!validateSlug(slug)) {
+    return null;
+  }
+
   const queryOptions = {
     content_type: "project",
     "fields.slug[match]": slug,
   };
 
   const queryResult = await client.getEntries(queryOptions);
+
+  if (!queryResult.items || queryResult.items.length === 0) {
+    return null;
+  }
 
   return queryResult.items[0] as unknown as ProjectItem;
 };
@@ -47,6 +59,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const slug = (await params).slug;
 
   const activeProject = await fetchProjectData(slug);
+  if (!activeProject) {
+    return {
+      title: "Project Not Found",
+      description: "The project you are looking for does not exist.",
+    };
+  }
   return {
     title: `${activeProject.fields.title} | Paul Stroot`,
     description: documentToPlainTextString(activeProject.fields.summary),
@@ -57,6 +75,8 @@ export default async function ProjectPage({ params }: BlogPageProps) {
   const { slug } = await params;
 
   const activeProject = await fetchProjectData(slug);
+  if (!activeProject) return null;
+
   const { title, description } = activeProject.fields;
 
   return (

@@ -1,5 +1,5 @@
 "use client";
-import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
+import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import {
   Badge,
   Button,
@@ -9,7 +9,6 @@ import {
   ModalHeader,
 } from "flowbite-react";
 
-import parse from "html-react-parser";
 import Image from "next/image";
 import { useState } from "react";
 import { A11y, Navigation, Pagination, Scrollbar } from "swiper/modules";
@@ -22,6 +21,15 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/scrollbar";
+
+const isValidUrl = (url: string): boolean => {
+  try {
+    const parsed = new URL(url);
+    return parsed.protocol === "http:" || parsed.protocol === "https:";
+  } catch {
+    return false;
+  }
+};
 
 export default function ProjectCarousel({
   projects,
@@ -131,10 +139,10 @@ export default function ProjectCarousel({
                   )}
                 </div>
               </aside>
-              {parse(documentToHtmlString(activeProject.fields.description))}
+              {documentToReactComponents(activeProject.fields.description)}
             </div>
           </ModalBody>
-          {activeProject.fields.url && (
+          {activeProject.fields.url && isValidUrl(activeProject.fields.url) && (
             <ModalFooter className="flex flex-col items-end py-2 ">
               <Link href={activeProject.fields.url} target="_blank">
                 <Button className="btn btn-sm btn-accent">Live Site</Button>

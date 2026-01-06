@@ -4,6 +4,17 @@ import { useState, type FormEvent } from "react";
 import Send from "./icons/send.js";
 const contactEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL;
 
+const escapeHtml = (text: string): string => {
+  const map: { [key: string]: string } = {
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#039;",
+  };
+  return text.replace(/[&<>"']/g, (m) => map[m]);
+};
+
 export default function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -17,6 +28,7 @@ export default function ContactForm() {
     const formValues = Object.fromEntries(formData.entries());
 
     try {
+      const emailBody = `Name: ${formValues.first_name} ${formValues.last_name} \nEmail: ${formValues.email} \nPhone: ${formValues.phone} \nMessage: ${formValues.message}`;
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -27,7 +39,7 @@ export default function ContactForm() {
           },
           from: { email: contactEmail },
           subject: "Contact From Portfolio",
-          text: `Name: ${formValues.first_name} ${formValues.last_name} \nEmail: ${formValues.email} \nPhone: ${formValues.phone} \nMessage: ${formValues.message}`,
+          text: escapeHtml(emailBody),
         }),
       });
       if (!res.ok) throw new Error(`Request failed: ${res.status}`);
@@ -53,7 +65,9 @@ export default function ContactForm() {
       <div className="text-primary-contrast">
         <h3>Uh Oh!</h3>
         <p>There has been an error. Please try again.</p>
-        <p className="text-error small">{error}</p>
+        <p className="text-error small">
+          {error.replace(/<[^>]*>/g, "").substring(0, 200)}
+        </p>
       </div>
     );
   }

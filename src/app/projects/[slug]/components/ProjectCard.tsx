@@ -1,7 +1,6 @@
 "use client";
-import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
+import { documentToReactComponents } from "@contentful/rich-text-react-renderer";
 import { Button, Card, createTheme } from "flowbite-react";
-import parse from "html-react-parser";
 import Image from "next/image";
 import { JSX } from "react";
 import Pin from "../../../components/icons/pin.js";
@@ -142,7 +141,7 @@ export default function ProjectCard({
           )}
 
           <div className="small font-normal">
-            {parse(documentToHtmlString(summary))}
+            {documentToReactComponents(summary)}
           </div>
         </div>
 
