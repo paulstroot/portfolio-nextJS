@@ -1,4 +1,5 @@
 import { FlatCompat } from "@eslint/eslintrc"
+import js from "@eslint/js"
 import { dirname } from "path"
 import { fileURLToPath } from "url"
 
@@ -10,6 +11,7 @@ const compat = new FlatCompat({
 })
 
 const eslintConfig = [
+  js.configs.recommended,
   ...compat.config({
     extends: ["next/core-web-vitals", "next/typescript", "prettier"],
     rules: {
