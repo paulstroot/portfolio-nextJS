@@ -1,19 +1,19 @@
 {
-  "semi": false,
-  "singleQuote": false,
-  "useTabs": true,
-  "tabWidth": 2,
-  "trailingComma": "es5",
-  "printWidth": 100,
-  "importOrder": [
-    "^(react/(.*)$)|^(react$)",
-    "^(next/(.*)$)|^(next$)",
-    "<THIRD_PARTY_MODULES>",
-    "",
-    "^@/components/(.*)$",
-    "^@/lib/(.*)$",
-    "^@/styles/(.*)$",
-    "^[./]"
-  ],
-  "importOrderParserPlugins": ["typescript", "jsx"]
+	"semi": false,
+	"singleQuote": false,
+	"useTabs": false,
+	"tabWidth": 2,
+	"trailingComma": "es5",
+	"printWidth": 100,
+	"importOrder": [
+		"^(react/(.*)$)|^(react$)",
+		"^(next/(.*)$)|^(next$)",
+		"<THIRD_PARTY_MODULES>",
+		"",
+		"^@/components/(.*)$",
+		"^@/lib/(.*)$",
+		"^@/styles/(.*)$",
+		"^[./]"
+	],
+	"importOrderParserPlugins": ["typescript", "jsx"]
 }

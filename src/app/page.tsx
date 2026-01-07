@@ -6,15 +6,15 @@ import Recognition from "./components/recognition"
 import Skills from "./components/skills"
 
 export default async function Home() {
-	return (
-		<main className="flex-1">
-			<Hero />
-			<div id="main"></div>
-			<Skills />
-			<Projects />
-			<Recognition />
-			<Profile />
-			<Contact />
-		</main>
-	)
+  return (
+    <main className="flex-1">
+      <Hero />
+      <div id="main"></div>
+      <Skills />
+      <Projects />
+      <Recognition />
+      <Profile />
+      <Contact />
+    </main>
+  )
 }

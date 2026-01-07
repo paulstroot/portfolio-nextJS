@@ -1,10 +1,10 @@
 "use client"
 
 import {
-	escapeHtml,
-	sanitizeContentfulRichText,
-	sanitizeImageUrl,
-	sanitizeUrlForDisplay,
+  escapeHtml,
+  sanitizeContentfulRichText,
+  sanitizeImageUrl,
+  sanitizeUrlForDisplay,
 } from "@/app/utilities/sanitize"
 import { Button, Card, createTheme } from "flowbite-react"
 import Image from "next/image"
@@ -13,38 +13,38 @@ import Pin from "../../../components/icons/pin.js"
 import { ProjectItem } from "../../../types"
 
 const customCardTheme = createTheme({
-	root: {
-		base: "flex rounded-lg border border-none bg-light text-dark shadow-md ",
-		children: "flex h-full flex-col justify-center gap-4 p-6",
-		horizontal: {
-			off: "flex-col",
-			on: "flex-col md:max-w-xl md:flex-row",
-		},
-		href: "hover:bg-gray-100 dark:hover:bg-gray-700",
-	},
-	img: {
-		base: "",
-		horizontal: {
-			off: "rounded-t-lg",
-			on: "h-96 w-full rounded-t-lg object-cover md:h-auto md:w-48 md:rounded-none md:rounded-l-lg",
-		},
-	},
+  root: {
+    base: "flex rounded-lg border border-none bg-light text-dark shadow-md ",
+    children: "flex h-full flex-col justify-center gap-4 p-6",
+    horizontal: {
+      off: "flex-col",
+      on: "flex-col md:max-w-xl md:flex-row",
+    },
+    href: "hover:bg-gray-100 dark:hover:bg-gray-700",
+  },
+  img: {
+    base: "",
+    horizontal: {
+      off: "rounded-t-lg",
+      on: "h-96 w-full rounded-t-lg object-cover md:h-auto md:w-48 md:rounded-none md:rounded-l-lg",
+    },
+  },
 })
 
 function CardImage({
-	desktopUrl,
-	mobileUrl,
-	featuredImage,
-	alt,
+  desktopUrl,
+  mobileUrl,
+  featuredImage,
+  alt,
 }: {
 	desktopUrl: string
 	mobileUrl: string
 	featuredImage: string
 	alt: string
 }): JSX.Element {
-	return (
-		<div className="relative ">
-			{desktopUrl ? (
+  return (
+    <div className="relative ">
+      {desktopUrl ? (
 				<>
 					<div className="slow-scroll desktop w-[66%] mb-[5%] mt-[5%] ml-[50%] mr-[50%] translate-x-[-58%] relative z-0 overflow-hidden">
 						<Image
@@ -81,7 +81,7 @@ function CardImage({
 						</div>
 					)}
 				</>
-			) : featuredImage ? (
+      ) : featuredImage ? (
 				<div className=" z-[1] right-0 left-0 overflow-hidden">
 					<Image
 						className="screen w-full h-full  top-0 left-0 z-2 object-cover object-top"
@@ -94,59 +94,59 @@ function CardImage({
 			) : (
 				<div>No Image</div>
 			)}
-		</div>
-	)
+    </div>
+  )
 }
 
 export default function ProjectCard({
-	project,
-	showProject,
-	isActive,
+  project,
+  showProject,
+  isActive,
 }: {
 	project: ProjectItem
 	showProject: (data: ProjectItem) => void
 	isActive: boolean
 }) {
-	const { slug, title, url, desktopLayout, mobileLayout, featuredImage, summary } = project.fields
+  const { slug, title, url, desktopLayout, mobileLayout, featuredImage, summary } = project.fields
 
-	return (
-		<div className="card project-card flex h-full" key={slug}>
-			<Card
-				className="group max-w-full overflow-hidden   transition-all duration-300 ease-in-out"
-				theme={customCardTheme}
-				renderImage={() => (
-					<CardImage
-						desktopUrl={desktopLayout?.fields.file.url}
-						mobileUrl={mobileLayout?.fields.file.url}
-						featuredImage={featuredImage?.fields.file.url}
-						alt={escapeHtml(title)}
-					/>
-				)}
-			>
-				<h3 className="tracking-tight">{escapeHtml(title)}</h3>
+  return (
+    <div className="card project-card flex h-full" key={slug}>
+      <Card
+        className="group max-w-full overflow-hidden   transition-all duration-300 ease-in-out"
+        theme={customCardTheme}
+        renderImage={() => (
+          <CardImage
+            desktopUrl={desktopLayout?.fields.file.url}
+            mobileUrl={mobileLayout?.fields.file.url}
+            featuredImage={featuredImage?.fields.file.url}
+            alt={escapeHtml(title)}
+          />
+        )}
+      >
+        <h3 className="tracking-tight">{escapeHtml(title)}</h3>
 
-				<div className="flex-1" aria-disabled={!isActive}>
-					{url && (
-						<div className="flex items-center cursor-pointer mb-2">
-							<div className="w-5 mr-2 h-auto text-accent">
-								<Pin />
-							</div>
-							<small className="hover:underline">{sanitizeUrlForDisplay(url)}</small>
-						</div>
-					)}
+        <div className="flex-1" aria-disabled={!isActive}>
+          {url && (
+            <div className="flex items-center cursor-pointer mb-2">
+              <div className="w-5 mr-2 h-auto text-accent">
+                <Pin />
+              </div>
+              <small className="hover:underline">{sanitizeUrlForDisplay(url)}</small>
+            </div>
+          )}
 
-					<div className="small font-normal">{sanitizeContentfulRichText(summary)}</div>
-				</div>
+          <div className="small font-normal">{sanitizeContentfulRichText(summary)}</div>
+        </div>
 
-				<Button
-					onClick={() => showProject(project)}
-					className="btn btn-accent w-full mt-4"
-					aria-disabled={!isActive}
-					tabIndex={isActive ? undefined : -1}
-				>
+        <Button
+          onClick={() => showProject(project)}
+          className="btn btn-accent w-full mt-4"
+          aria-disabled={!isActive}
+          tabIndex={isActive ? undefined : -1}
+        >
 					Read More
-				</Button>
-			</Card>
-		</div>
-	)
+        </Button>
+      </Card>
+    </div>
+  )
 }
