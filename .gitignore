@@ -36,6 +36,9 @@ yarn-error.log*
 .env.*
 !.env.example
 
+# PHP contact-form secrets (deployed by CI, never committed)
+public/mail-config.php
+
 # vercel
 .vercel
 

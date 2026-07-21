@@ -110,7 +110,7 @@ export default function ContactForm() {
         `Phone: ${escapeHtml(String(formValues.phone))}`,
         `Message: ${escapeHtml(String(formValues.message))}`,
       ].join("\n")
-      const res = await fetch("/api/contact", {
+      const res = await fetch("/mail.php", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
