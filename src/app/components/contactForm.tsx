@@ -3,7 +3,6 @@ import { escapeHtml } from "@/app/utilities/sanitize"
 import { Button } from "flowbite-react"
 import { useState, type FormEvent } from "react"
 import Send from "./icons/send.js"
-const contactEmail = process.env.NEXT_PUBLIC_CONTACT_EMAIL
 
 export default function ContactForm() {
   const [isSubmitting, setIsSubmitting] = useState(false)
@@ -18,6 +17,7 @@ export default function ContactForm() {
     email?: FormDataEntryValue
     phone?: FormDataEntryValue
     message?: FormDataEntryValue
+    hp_field?: FormDataEntryValue
   }
 
   const isValidEmail = (value: string) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value)
@@ -102,25 +102,22 @@ export default function ContactForm() {
     }
 
     try {
-      const emailBody = [
-        `Name: ${escapeHtml(String(formValues.first_name))} ${escapeHtml(
-          String(formValues.last_name)
-        )}`,
-        `Email: ${escapeHtml(String(formValues.email))}`,
-        `Phone: ${escapeHtml(String(formValues.phone))}`,
-        `Message: ${escapeHtml(String(formValues.message))}`,
-      ].join("\n")
+      const name = `${formValues.first_name} ${formValues.last_name}`.trim()
+      const phone = String(formValues.phone ?? "").trim()
+      const messageBody = phone
+        ? `Phone: ${phone}\n\n${String(formValues.message)}`
+        : String(formValues.message)
+
       const res = await fetch("/mail.php", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          to: {
-            email: contactEmail,
-            name: `${formValues.first_name} ${formValues.last_name}`,
-          },
-          from: { email: contactEmail },
-          subject: "Contact From Portfolio",
-          text: emailBody,
+          name,
+          email: String(formValues.email),
+          message: messageBody,
+          // Honeypot: left empty by real visitors, filled in by bots that fill
+          // out every field they find. The server silently no-ops if it's set.
+          hp_field: String(formValues.hp_field ?? ""),
         }),
       })
       if (!res.ok) throw new Error(`Request failed: ${res.status}`)
@@ -155,6 +152,16 @@ export default function ContactForm() {
       onSubmit={doSubmit}
       noValidate
     >
+      {/* Honeypot: hidden off-screen (not display:none) so bots that only skip
+          invisible fields still fill it in. Real visitors never see or tab to it. */}
+      <div
+        style={{ position: "absolute", left: "-9999px", top: "auto", width: 1, height: 1, overflow: "hidden" }}
+        aria-hidden="true"
+      >
+        <label htmlFor="hp_field">Leave this field blank</label>
+        <input type="text" name="hp_field" id="hp_field" tabIndex={-1} autoComplete="off" />
+      </div>
+
       <div className="grid md:grid-cols-2 md:gap-6">
         <div className="relative z-0 w-full mb-5 group">
           <input
