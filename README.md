@@ -1,46 +1,82 @@
-# Contentful Next.js Simple Blog
+# Paul Stroot — Portfolio
 
-[https://www.contentful.com/blog](https://www.contentful.com/blog)
+Personal portfolio site for [paulstroot.com](https://paulstroot.com). Built with Next.js (static export) and Contentful as a headless CMS, with a runtime theme-switcher and a PHP/SMTP2GO contact form relay for shared hosting on Dreamhost.
 
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## Stack
 
-## Getting Started
+- **Framework:** Next.js 15 (App Router), React 19, TypeScript
+- **Styling:** Tailwind CSS 4, Flowbite React
+- **Content:** Contentful (fetched at build time via the Contentful JS SDK + rich-text renderers)
+- **UI:** Swiper (project carousels), a runtime theme-switcher (four CSS skins over one component set)
+- **Contact form:** static-export-friendly PHP relay (`public/mail.php`) that calls the SMTP2GO API
+- **Hosting:** static export (`output: "export"`), deployed to Dreamhost over rsync/SSH via GitHub Actions
 
-First, install the dependencies:
+## Getting started
 
 ```bash
-npm install
-```
-
-Then, run the development server:
-
-```bash
-npm run dev
-# or
+yarn install
+cp public/mail-config.example.php public/mail-config.php   # fill in a real SMTP2GO key for local contact-form testing
 yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+> The repo uses `yarn.lock`. If you use `npm install` instead, delete `package-lock.json` before committing so the two don't drift.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+### Environment variables
 
-## Learn More
+Create a `.env` in the project root (gitignored) with:
 
-To learn more about Next.js, take a look at the following resources:
+| Variable | Purpose |
+| --- | --- |
+| `SPACE_ID` | Contentful space ID |
+| `ACCESS_TOKEN` | Contentful Content Delivery API token |
+| `MANAGEMENT_TOKEN` | Contentful Content Management API token |
+| `PREVIEW_TOKEN` | Contentful Preview API token |
+| `NEXT_PUBLIC_CONTACT_EMAIL` | Recipient (and from) address for the contact form. Inlined into the client bundle at build time since it's `NEXT_PUBLIC_*`. |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+In CI, these are written from a single GitHub Actions secret named `ENV_FILE` (see `.github/workflows/deploy.yml`) rather than individual per-key secrets — update that secret's contents, not a new one, when adding a variable.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Scripts
 
-## Deploy on Vercel
+| Command | Description |
+| --- | --- |
+| `yarn dev` | Start the dev server (Turbopack) |
+| `yarn build` | Static export build (`output: "export"`, writes to `out/`) |
+| `yarn start` | Serve a production build locally |
+| `yarn lint` | ESLint |
+| `yarn pa11y` | Accessibility scan against `http://localhost:3000/` (requires a running server) |
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Project structure
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```
+src/app/              Next.js App Router pages and layout
+src/app/components/   Page sections (hero, header, footer, contact form, theme picker, …)
+src/app/projects/     Dynamic project detail route ([slug]) and its components
+src/app/utilities/    Shared helpers (e.g. HTML sanitization)
+src/middleware.ts      Security headers for local dev (not applied in static export, see below)
+styles/                Global styles, typography, and one CSS file per theme (base/theme-*.css)
+public/mail.php        Contact form backend: validates input, relays to SMTP2GO
+public/mail-config.php Gitignored; holds the SMTP2GO API key (see mail-config.example.php)
+```
+
+## Content model (Contentful)
+
+Projects are a `project` content type with fields including `title`, `slug`, `summary`, `description` (rich text), `date`, `featuredImage`, `skills` (linked entries), `url`, `order`, and `displayOnSite`. The homepage project carousel queries all `project` entries, sorts by `order`, and filters to `displayOnSite: true`.
+
+## Theming
+
+Four visual themes (`default`, `clean`, `wildwest`, `wrestler`) live as separate stylesheets under `styles/base/theme-*.css` and are toggled at runtime by swapping a `theme-*` class on `<body>` (see `src/app/components/themePicker.tsx`). All themes share the same component markup.
+
+## Deployment
+
+`output: "export"` means this ships as static files, not a Node server — so Next.js API routes and edge middleware (`src/middleware.ts`) don't run in production. Two things route around that:
+
+- **Contact form:** the client posts to `/mail.php`, a plain PHP endpoint (not Next.js) that validates the payload and calls the SMTP2GO API. `mail-config.php` (holding the API key) is generated by the deploy workflow from the `SMTP2GO_API_KEY` secret, not committed.
+- **Security headers** (CSP, X-Frame-Options, etc.): `src/middleware.ts` applies them in `next dev`, but since middleware doesn't run under static export, the equivalent headers need to be configured at the hosting layer for production (see `public/_headers` / the comments in `next.config.ts`).
+
+CI/CD is handled by `.github/workflows/deploy.yml` (GitHub Actions), which triggers on:
+- every push to `main`
+- a `repository_dispatch` of type `contentful.deploy` (so publishing in Contentful can also trigger a rebuild, via a webhook configured on the Contentful side)
+
+The workflow builds the static export and rsyncs `out/` to Dreamhost over SSH.
